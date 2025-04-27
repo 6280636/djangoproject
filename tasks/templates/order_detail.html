@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+
+<div class="alert alert-danger text-center my-4">
+    {{ error }}
+</div>
+
+{% endif %}
+
+{% if order %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-4 order-2 order-md-1">
+            <div class="col text-center text-uppercase mb-5" id="scanOrder">
+                <h6>SCAN OR ENTER AND ORDER ID</h6>
+
+                <!-- {% url 'order_detail' order.order_id %} -->
+                <form action="{% url 'order_search' %}" method="post"
+                    class="orderIdFormulaire d-flex flex-column align-items-center">
+                    {% csrf_token %}
+                    <div style="width: 80%;">
+                        <label class="form-label" for="orderId">ORDER ID</label>
+                        <input type="text" name="orderId" id="orderId" autocomplete="off" required minlength="4"
+                            maxlength="20" class="form-control mb-3" autofocus>
+                        <button type="submit" class="btn btn-dark w-100">SUBMIT</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-12 col-md-8 order-2 order-md-1" id="selectedOrder">
+            <div class="col text-center text-uppercase mb-5">
+                <h6>SELECTED ORDER</h6>
+            </div>
+
+            <div class="mx-auto" style="width: 80%;">
+                <div class="mb-3">
+                    <label class="form-label">Order ID</label>
+                    <p class="form-control bg-light">{{ order.order_id }}</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Quantity Required</label>
+                        <p class="form-control bg-light">{{ order.quantity }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Manufacturing Order Status</label>
+                        <p class="form-control bg-light">{{ order.mo_status }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Order Date</label>
+                        <p class="form-control bg-light">{{ order.order_date }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Lot Number</label>
+                        <p class="form-control bg-light">{{ order.lot_number }}</p>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Due Date</label>
+                    <p class="form-control bg-light">{{ order.due_date }}</p>
+                </div>
+
+                <div class="text-center">
+                    <!-- <button class="btn btn-success"> -->
+                        <a href="{% url 'procedure_detail' order.codeitem.procedure.id %}" class="btn btn-success">
+                            Outils Requis ▶
+                        </a>
+                        <!-- <a href="{% url 'verify_components' order.order_id %}" class="btn btn-success">
+                            BEGIN ORDER ▶
+                        </a> -->
+                    <!-- </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-4 order-2 order-md-1">
+            <div class="col text-center text-uppercase mb-5" id="scanOrder">
+                <h6>SCAN OR ENTER AN ORDER ID</h6>
+                <form action="{% url 'order_search' %}" method="post"
+                    class="orderIdFormulaire d-flex flex-column align-items-center">
+                    {% csrf_token %}
+                    <div style="width: 80%;">
+                        <label class="form-label" for="orderId">ORDER ID</label>
+                        <input type="text" name="orderId" id="orderId" autocomplete="off" required minlength="4"
+                            maxlength="20" class="form-control mb-3" autofocus>
+                        <button type="submit" class="btn btn-dark w-100">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

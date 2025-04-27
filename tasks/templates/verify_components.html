@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_style %}
+<style>
+    /* En styles.css o directamente aquí */
+    .selected-component {
+        border: 2px solid red !important;
+        border-radius: 5px;
+        padding: 5px;
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+
+    .leader-line {
+        stroke: red !important;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+
+
+<div class="container-fluid my-4">
+    <div class="row">
+
+        <!-- 🟢 PARTE 1: Detalles de la orden -->
+        <div class="col-md-3 border-end">
+            <h5 class="text-uppercase fw-bold mb-3">Current Order</h5>
+            <!-- Detalles individuales -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Order ID</label>
+                <p class="form-control bg-light">{{ order.order_id }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">QTY Required</label>
+                <p class="form-control bg-light">{{ order.quantity }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Due Date</label>
+                <p class="form-control bg-light">{{ order.due_date }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Part Number</label>
+                <p class="form-control bg-light">{{ order.lot_number }}</p>
+            </div>
+            <div class="text-center mt-4">
+                <img src="{% static 'tasks/images/sensor.png' %}" alt="sensor" class="img-fluid" style="max-height: 150px;">
+            </div>
+        </div>
+
+        <!-- 🔵 PARTE 2: Imagen dividida -->
+        <div class="col-md-6 d-flex flex-column align-items-center">
+            <h5 class="text-uppercase mb-4">Assembly Components</h5>
+            <div id="assembly-container" class="position-relative" style="width:100%; max-width:500px; height:500px;">
+
+                {% for component in components %}
+                {% if component.image %}
+                <img id="comp-{{ component.id }}" src="{% static component.image %}" alt="{{ component.name }}"
+                    class="position-absolute component-img"
+                    style="top: {{ component.pos_y }}px; left: {{ component.pos_x }}px; z-index: {{ component.z_index }}; width: 80px;"
+                    data-comp-id="{{ component.id }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 🟣 PARTE 3: Lista de componentes -->
+        <div class="col-md-3">
+            <div class="row g-1">
+                {% for component in components %}
+                <div class="col-12">
+                    <div id="list-{{ component.id }}"
+                        class="d-flex align-items-left rounded p-2 shadow-sm bg-white component-item"
+                        style="gap: 10px; border: 2px solid red;">
+                        {% if component.image %}
+                        <img src="{% static component.image %}" alt="{{ component.name }}">
+                        {% else %}
+                        <div class="bg-secondary text-white">
+                            No Img
+                        </div>
+                        {% endif %}
+                        <div style="font-size: 0.80rem;">
+                            <div class="fw-bold">{{ component.name }}</div>
+                            <div class="text-muted" style="text-align: left;">ItemId: &nbsp;&nbsp;<strong>{{ component.item_id }}</strong></div>
+                            <div class="text-muted" style="text-align: left;">Qty &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;<strong>{{ component.required_quantity }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="text-end mt-4">
+        <a href="#" class="btn btn-success">Begin Assembly ▶</a>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // selecciona todas las imágenes de componentes
+    document.querySelectorAll('.component-img').forEach(imgEl => {
+      const id = imgEl.dataset.compId;                 // e.g. "5"
+      const listEl = document.getElementById(`list-${id}`);
+      if (listEl) {
+        // aquí sí puedes usar const sin repetir nombres en el mismo bloque
+        new LeaderLine(
+          imgEl,
+          listEl,
+          { color: 'red', size: 2, path: 'straight' }
+        );
+      }
+    });
+  });
+  </script>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Para cada imagen de componente, dibuja la línea y aplica el marco
+        document.querySelectorAll('.component-img').forEach(imgEl => {
+            const id = imgEl.dataset.compId;
+            const listEl = document.getElementById(`list-${id}`);
+            if (!listEl) return;
+
+            // Dibuja la línea en rojo
+            const line = new LeaderLine(imgEl, listEl, {
+                color: 'red',
+                size: 2,
+                path: 'straight'
+            });
+            line.svg.classList.add('leader-line');
+
+            // Aplica el marco rojo al bloque de la lista
+            listEl.classList.add('selected-component');
+        });
+    });
+</script> -->
+{% endblock %}
+{% block footer %}
+<footer class="container-fluid">
+    <div class="row">
+        <div class="col-2" id="div4">
+            <a href="javascript:history.back()" class="btn btn-link text-decoration-none" style="color: white;">
+                <i class="bi bi-arrow-left-circle fs-3 me-2"></i>
+                <span>Previous</span>
+            </a>
+        </div>
+
+        <div class="col-8" id="div5"></div>
+
+        <div class="col-2" id="div6">
+            <a href="javascript:history.forward()" class="btn btn-link text-decoration-none" style="color: white;">
+                <span>Next</span>
+                <i class="bi bi-arrow-right-circle fs-3 ms-2"></i>
+            </a>
+        </div>
+    </div>
+
+
+
+</footer>
+{% endblock %}

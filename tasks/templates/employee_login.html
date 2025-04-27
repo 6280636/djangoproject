@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4 offset-md-4 mt-5">
+    <form method="post" class="card card-body">
+      <h1 class="text-center">Connexion</h1>
+
+      {% csrf_token %}
+
+      <div class="mb-3">
+        {% if form.employee_number.errors %}
+          <div class="alert alert-danger">
+            {{ form.employee_number.errors }}
+          </div>
+        {% endif %}
+        {{ form.employee_number.label_tag }}
+        {{ form.employee_number }}       
+        
+      </div>
+
+      <button class="btn btn-primary" type="submit">Se connecter</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

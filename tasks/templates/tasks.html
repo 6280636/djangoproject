@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block extra_style %}
+<style>
+  table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    td {
+        border: 2px solid #000;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .row-1 {
+        height: 120px; /* el doble de las otras filas */
+    }
+
+    .row-others {
+        height: 60px;
+    }
+
+    .col-3 {
+        width: 25%;
+    }
+
+    .col-6 {
+        width: 50%;
+    }
+
+    .col-1-5 {
+        width: 12.5%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<table>
+  <!-- Primera fila -->
+  <tr class="row-1">
+      <td class="col-3">aqui va un logo</td>
+      <td class="col-6">
+        <h4 style="margin-bottom: 0.5rem;">aqui este titulo arriba :INSTRUCTIONS DE TRAVAIL y debajo {{ procedure.name }}</h4>
+        
+
+      </td>
+      <td class="col-1-5">aqui va el numero de revision</td>
+      <td class="col-1-5">aqui el numero de pagina</td>
+  </tr>
+
+  <!-- Segunda fila -->
+  <tr class="row-others">
+      <td class="col-3">prepare par:</td>
+      <td class="col-3">Revise par</td>
+      <td class="col-3">Approuve par</td>
+      <td class="col-3">Numero de procedure</td>
+  </tr>
+
+  <!-- Tercera fila -->
+  <tr class="row-others">
+      <td class="col-3">Date de preparation</td>
+      <td class="col-3">Date de revision</td>
+      <td class="col-3">Date d'approbation</td>
+      <td class="col-3">Numero de d'assamblage</td>
+  </tr>
+</table>
+{% endblock %}
+<!-- procedure_detail.html -->
+<!-- {% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Procedure Details</h2>
+    <p><strong>Name:</strong> {{ procedure.name }}</p>
+    <p><strong>Description:</strong> {{ procedure.description }}</p>
+    <p><strong>Prepared by:</strong> {{ procedure.prepared_by }}</p>
+    <p><strong>Prepared date:</strong> {{ procedure.prepared_date }}</p>
+    <p><strong>Reviewed by:</strong> {{ procedure.reviewed_by }}</p>
+    <p><strong>Review date:</strong> {{ procedure.review_date }}</p>
+    <p><strong>Approved by:</strong> {{ procedure.approved_by }}</p>
+    <p><strong>Approved date:</strong> {{ procedure.approved_date }}</p>
+    <p><strong>Procedure number:</strong> {{ procedure.procedure_number }}</p>
+    <p><strong>Assembly number:</strong> {{ procedure.assembly_number }}</p>
+    <p><strong>Revision number:</strong> {{ procedure.revision_number }}</p>
+    <p><strong>Tools:</strong> {{ procedure.tools }}</p>
+</div>
+{% endblock %} -->

@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    
+    <title>Django CRUD Application</title>
+    {% block extra_style %}
+    {% endblock %}
+    
+</head>
+
+<body>
+    <header>
+        <!-- <nav class="navbar navbar-expand-lg bg-dark navbar-dark"> -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2" id="div1">
+                    <img src="{% static 'tasks/images/inkspeclogo.jpg' %}" alt="Inkspec" width="1000" height="1000"
+                        class="img-fluid mt-3">
+                </div>
+                <div class="col-8" id="div2">
+                    <!-- <div class="collapse navbar-collapse" id="navbarText"> -->
+                    <ul class="navbar-nav d-flex flex-row justify-content-end w-100 mb-2 mb-lg-0 gap-3">
+                        <!-- <li class="nav-item text-center">
+                            <a class="nav-link active d-flex flex-column align-items-center" href="/">
+                                <i class="bi bi-house-door fs-4"></i>
+                                <span>Home</span>
+                            </a>
+                        </li> -->
+
+                        <li class="nav-item text-center">
+                            <a class="nav-link active d-flex flex-column align-items-center" href="/admin/">
+                                <i class="bi bi-person-gear fs-4"></i>
+                                <span>Admin</span>
+                            </a>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item text-center">
+                            <a class="nav-link active d-flex flex-column align-items-center" href="/logout/">
+                                <i class="bi bi-power fs-4"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item text-center">
+                            <a class="nav-link active d-flex flex-column align-items-center" href="/tasks/">
+                                <i class="bi bi-clipboard-check fs-4"></i>
+                                <span>Tasks</span>
+                            </a>
+                        </li> -->
+                        <!-- <li class="nav-item">
+                            <a class="nav-link active d-flex flex-column align-items-center" href="/help/">
+                                <i class="bi bi-question-circle fs-4"></i> Help
+                            </a>
+                        </li> -->
+                        {% else %}
+                        <!-- <li class="nav-item">
+                                <a class="nav-link active" href="/signup">Signup</a>
+                            </li> -->
+                        <li class="nav-item text-center">
+                            <a class="nav-link active d-flex flex-column align-items-center" href="/signin/">
+                                <i class="bi bi-person-circle fs-4"></i>
+                                <span>Signin</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                    <!-- </div> -->
+                </div>
+                <div class="col-2" id="div3">
+                    {% if user.is_authenticated %}
+                    <span class="navbar-text fw-bold">
+                        {{ user.username }}
+                    </span>
+                    {% else %}
+                    <p class="navbar-text text-white">Logged in username</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- </nav> -->
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="container-fluid">
+    </footer>
+    {% block footer %}
+    
+
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
+    {% block extra_js %}
+    <!-- aquí inyectarás tu JS específico de la página -->
+    {% endblock %}    
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container py-5">
+    <section class="card body">
+        <h1 class="display-1 text-center">Home</h1>
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum incidunt aperiam libero odit unde. Iusto
+            adipisci
+            numquam odit dolorum minima officiis rerum, nihil esse velit. At, nam facilis? Quos, officiis ut. Repellat,
+            aspernatur quia dolorem consequuntur reprehenderit cumque, sunt delectus deserunt facere, culpa suscipit
+            repellendus
+            magnam. Facere quidem atque, placeat maiores soluta labore quod sapiente dolores expedita voluptatibus
+            deserunt
+            autem error laudantium? In impedit explicabo nisi labore nostrum numquam laudantium consectetur repellat
+            nemo
+            earum
+            minima odit, nesciunt cumque similique eos corporis. Ad explicabo doloribus nihil accusantium voluptas est
+            eaque,
+            voluptatibus, nostrum aspernatur dolores earum necessitatibus, itaque dignissimos distinctio tenetur! Nobis!
+        </p>
+        {% if not user.is_authenticated %}
+        <div class="text-center">
+            <a class="btn btn-secondary" href="/signin/">
+                Signin
+            </a>
+        </div>
+        {% endif %}      
+
+    </section>
+</main>
+
+{% endblock %}
+
+{% block footer %}
+{% if user.is_authenticated %}
+<footer class="container-fluid">
+  <div class="row">
+    <div class="col-2" id="div4">
+      <a href="javascript:history.back()" class="btn btn-link text-decoration-none" style="color: white;">
+        <i class="bi bi-arrow-left-circle fs-3 me-2"></i>
+        <span>Previous</span>
+      </a>
+    </div>
+
+    <div class="col-8" id="div5"></div>
+
+    <div class="col-2" id="div6">
+      <a href="javascript:history.forward()" class="btn btn-link text-decoration-none" style="color: white;">
+        <span>Previous</span>
+        <i class="bi bi-arrow-right-circle fs-3 ms-2"></i>
+      </a>
+    </div>
+  </div>
+  
+</footer>
+{% endif %} 
+{% endblock %}
