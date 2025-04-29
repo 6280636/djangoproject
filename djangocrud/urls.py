@@ -34,4 +34,5 @@ urlpatterns = [
          views.verify_components, name='verify_components'),
     path('procedure/<int:procedure_id>/',
          views.procedure_detail, name='procedure_detail'),
+         
 ]

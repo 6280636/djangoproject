@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_style %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div id="section2">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center text-uppercase fw-bold">
+                        Outils Requis
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Nom de l'article</th>
+                                        <th>Quantité</th>
+                                        <th>Image</th>
+                                        <th>Nom de l'article</th>
+                                        <th>Quantité</th>
+                                        <th>Image</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tool in procedure.tool_items.all %}
+                                    {% if forloop.counter0|divisibleby:2 %}
+                                    <tr>
+                                        {% endif %}
+
+                                        <td>{{ tool.name }}</td>
+                                        <td>{{ tool.quantity }}</td>
+                                        <td>
+                                            {% if tool.image_url %}
+                                            <img src="{% static tool.image_url %}" alt="{{ tool.name }}"
+                                                class="img-fluid" style="max-width:80px;">
+                                            {% else %}
+                                            &mdash;
+                                            {% endif %}
+                                        </td>
+
+                                        {% if forloop.counter|divisibleby:2 or forloop.last %}
+                                    </tr>
+                                    {% endif %}
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">No hay herramientas registradas.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- <div class="row mt-4">
+                                <div class="col text-center">
+                                    <a href="{% url 'verify_components' order.order_id %}" class="btn btn-success">
+                                        Verify Components ▶
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    {% endblock %}
+    {% block footer %}
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="col-2" id="div4">
+                <a href="javascript:history.back()" class="btn btn-link text-decoration-none" style="color: white;">
+                    <i class="bi bi-arrow-left-circle fs-3 me-2"></i>
+                    <span>Previous</span>
+                </a>
+            </div>
+
+            <div class="col-8" id="div5"></div>
+
+            <div class="col-2" id="div6">
+                <a href="{% url 'verify_components' order.order_id %}" class="btn btn-link text-decoration-none"
+                    style="color: white;">
+                    <!-- <a href="javascript:history.forward()" class="btn btn-link text-decoration-none" style="color: white;"> -->
+                    <span>Next</span>
+                    <i class="bi bi-arrow-right-circle fs-3 ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+    </footer>
+    {% endblock %}

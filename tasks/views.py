@@ -183,10 +183,25 @@ def verify_components(request, order_id):
 def procedure_detail(request, procedure_id):
     procedure = get_object_or_404(Procedure, id=procedure_id)
     order = Order.objects.filter(codeitem__procedure=procedure).first()  # o .get() si solo hay uno
-    return render(request, 'procedure_detail.html', {
-        'procedure': procedure,
-        'order': order,
-    })
+    current_section = request.GET.get('page', 'section1')  # 'section1' es la sección por defecto
+    
+    if current_section == 'section2':
+        return render(request, 'procedure_detail1.html', {
+            'procedure': procedure,
+            'order': order,
+            'show_section2': current_section == 'section2' 
+        })
+    else:
+        return render(request, 'procedure_detail.html', {
+            'procedure': procedure,
+            'order': order,
+            'show_section2': current_section == 'section2' 
+        })
+    # return render(request, 'procedure_detail.html', {
+    #     'procedure': procedure,
+    #     'order': order,
+    #     'current_section': current_section,
+    # })
 
 def employee_login(request):
     """
