@@ -16,6 +16,11 @@
     .leader-line {
         stroke: red !important;
     }
+    
+    .component-reviewed {
+        border: 2px solid green !important;
+        background-color: #e6ffe6;
+    }
 </style>
 
 {% endblock %}
@@ -123,7 +128,19 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leader-line/1.0.7/leader-line.min.js"></script>
-  <script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const components = document.querySelectorAll('.component-item');
+
+        components.forEach(component => {
+            component.addEventListener('click', function () {
+                this.classList.toggle('component-reviewed');
+            });
+        });
+    });
+</script>
+
+  <!-- <script>
   document.addEventListener('DOMContentLoaded', function () {
     // selecciona todas las imágenes de componentes
     document.querySelectorAll('.component-img').forEach(imgEl => {
@@ -139,7 +156,7 @@
       }
     });
   });
-  </script>
+  </script> -->
 <!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Para cada imagen de componente, dibuja la línea y aplica el marco
