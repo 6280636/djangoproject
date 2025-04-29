@@ -23,7 +23,7 @@
     <div class="row">
 
         <!-- 🟢 PARTE 1: Detalles de la orden -->
-        <div class="col-md-3 border-end">
+        <div class="col-md-2 border-end">
             <h5 class="text-uppercase fw-bold mb-3">Current Order</h5>
             <!-- Detalles individuales -->
             <div class="mb-3">
@@ -47,32 +47,50 @@
             </div>
         </div>
 
-        <!-- 🔵 PARTE 2: Imagen dividida -->
-        <div class="col-md-6 d-flex flex-column align-items-center">
-            <h5 class="text-uppercase mb-4">Assembly Components</h5>
-            <div id="assembly-container" class="position-relative" style="width:100%; max-width:500px; height:500px;">
-
-                {% for component in components %}
-                {% if component.image %}
-                <img id="comp-{{ component.id }}" src="{% static component.image %}" alt="{{ component.name }}"
-                    class="position-absolute component-img"
-                    style="top: {{ component.pos_y }}px; left: {{ component.pos_x }}px; z-index: {{ component.z_index }}; width: 80px;"
-                    data-comp-id="{{ component.id }}">
-                {% endif %}
+         <!-- 🟣 PARTE 3: Lista de componentes -->
+         <div class="col-md-3">
+            <div class="row g-1">
+                {% for component in components_first_half %}
+                <div class="col-12">
+                    <div id="list-{{ component.id }}"
+                        class="d-flex align-items-left rounded p-2 shadow-sm bg-white component-item"
+                        style="gap: 10px; border: 2px solid red;">
+                        {% if component.image %}
+                        <img src="{% static component.image %}" alt="{{ component.name }}" class="img-fluid" style="width: 60px;">
+                        {% else %}
+                        <div class="bg-secondary text-white">
+                            No Img
+                        </div>
+                        {% endif %}
+                        <div style="font-size: 0.80rem;">
+                            <div class="fw-bold">{{ component.name }}</div>
+                            <div class="text-muted" style="text-align: left;">ItemId: &nbsp;&nbsp;<strong>{{ component.item_id }}</strong></div>
+                            <div class="text-muted" style="text-align: left;">Qty &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;<strong>{{ component.required_quantity }}</strong></div>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
+            </div>
+        </div>
+        
+        <!-- 🔵 PARTE 2: Imagen dividida -->
+        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <!-- <h5 class="text-uppercase mb-4">Assembly Components</h5> -->
+            <div style="width: 100%; max-width: 500px;">
+                <img src="{% static 'tasks/Assy_Images/MIIV3.png' %}" class="img-fluid" alt="Component Image">
             </div>
         </div>
 
         <!-- 🟣 PARTE 3: Lista de componentes -->
         <div class="col-md-3">
             <div class="row g-1">
-                {% for component in components %}
+                {% for component in components_second_half %}
                 <div class="col-12">
                     <div id="list-{{ component.id }}"
                         class="d-flex align-items-left rounded p-2 shadow-sm bg-white component-item"
                         style="gap: 10px; border: 2px solid red;">
                         {% if component.image %}
-                        <img src="{% static component.image %}" alt="{{ component.name }}">
+                        <img src="{% static component.image %}" alt="{{ component.name }}" class="img-fluid" style="width: 60px;">
                         {% else %}
                         <div class="bg-secondary text-white">
                             No Img
@@ -165,3 +183,4 @@
 
 </footer>
 {% endblock %}
+

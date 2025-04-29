@@ -168,10 +168,15 @@ def verify_components(request, order_id):
     # carga la orden o devuelve 404
     order = get_object_or_404(Order, order_id=order_id)
     components = Component.objects.filter(codeitem=order.codeitem)
+    half = len(components) // 2
+    components_first_half = components[:half]
+    components_second_half = components[half:]
     # renderiza el template pasando el objeto order
     return render(request, 'verify_components.html', {
         'order': order,
-        'components': components
+        'components': components,
+        'components_first_half': components_first_half,
+        'components_second_half': components_second_half,
         
     })
 
